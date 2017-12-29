@@ -1,12 +1,45 @@
+// react
 import React from 'react';
-// import logo from './logo.svg';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-// import './App.css';
 
+// material-ui
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {GridList, GridTile} from 'material-ui/GridList';
+
+// componentes
+import Header from './components/Header';
+import Score from './components/Score';
+import Board from './components/Board';
+
+// estilos css
+const styles = {
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+  },
+  gridList: {
+    width: 1000,
+    height: 450,
+    overflowY: 'auto',
+  },
+};
+// componente App
 const App = () => {
   return (
     <MuiThemeProvider>
-      <h1> Hola </h1>
+      <div>
+        <Header/>
+        <div style={styles.root}>
+          <GridList style={styles.gridList}>
+            <GridTile>
+              <Board/>
+            </GridTile>
+            <GridTile>
+              <Score/>
+            </GridTile>
+          </GridList>
+        </div>
+      </div>
     </MuiThemeProvider>
   );
 }

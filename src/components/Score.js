@@ -1,13 +1,12 @@
 import React from 'react';
 import {Card, CardTitle} from 'material-ui/Card';
 
-const Board = () => {
-  return(
+const Score = () => {
+  return (
     <Card>
-     <CardTitle title="Tablero"/>
+     <CardTitle title="Puntuación"/>
     </Card>
-
   );
 };
 
-export default Board;
+export default Score;
