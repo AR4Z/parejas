@@ -2,6 +2,8 @@ import React from 'react';
 import {Card, CardTitle} from 'material-ui/Card';
 import { connect } from 'react-redux';
 import { fillMatrix } from '../actionCreators';
+import Box from './Box';
+
 
 const Board = (props) => {
   console.log(props.board_ready);
@@ -12,7 +14,7 @@ const Board = (props) => {
   return(
     <Card>
      <CardTitle title="Tablero"/>
-
+     <Box name={1}/>
     </Card>
   );
 };
