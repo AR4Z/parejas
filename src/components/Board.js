@@ -1,5 +1,6 @@
 import React from 'react';
 import {Card, CardTitle} from 'material-ui/Card';
+import {GridList, GridTile} from 'material-ui/GridList';
 import { connect } from 'react-redux';
 import { fillMatrix } from '../actionCreators';
 import Box from './Box';
@@ -13,16 +14,19 @@ const Board = (props) => {
   if (!props.board_ready){
     props.fillMatrix(props.cards, props.mtz_board);
   }
-  // log
-  console.log(props.mtz_board);
+
   return(
     <Card>
     // ERROR
      <CardTitle title="Tablero"/>
-     {props.mtz_board.map(i =>
-
-        <Box name={i[0].id}/>
-
+     {props.mtz_board.map(row =>
+       <GridList cols={5} cellHeight={100}>
+       {row.map(col =>
+        <GridTile >
+        <Box name={col.id}/>
+        </GridTile>
+       )}
+       </GridList>
      )}
     </Card>
   );

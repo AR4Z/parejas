@@ -1,8 +1,13 @@
+// react
 import React from 'react';
 import ReactDOM from 'react-dom';
+import registerServiceWorker from './registerServiceWorker';
+
+// componentes
 import './index.css';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+
+// redux
 import store from './store';
 import { Provider } from 'react-redux';
 

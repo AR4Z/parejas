@@ -7,11 +7,11 @@ import Paper from 'material-ui/Paper';
 
 //css
 const style = {
-  height: 90,
-  width: 100,
-  margin: 10,
-  textAlign: 'center',
-  display: 'inline-block',
+  height: 100,
+  width: 100
+  // margin: 10,
+  // textAlign: 'center',
+  // display: 'inline-block',
 };
 
 // componente caja, cada una de las fichas del tablero
@@ -23,7 +23,7 @@ const Box = (props) => {
   return (
     <div>
       <Paper style={style} zDepth={3}>
-        <img src={card.img} style={{width:'100%', height:'auto'}}/>
+        <img src={card.img} style={{width:'100%', height:'100%'}}/>
       </Paper>
     </div>
   );

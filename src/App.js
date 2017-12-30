@@ -19,9 +19,9 @@ const styles = {
   },
   gridList: {
     width: 1000,
-    height: 450,
+    height: 500,
     overflowY: 'auto',
-  },
+  }
 };
 // componente App
 const App = () => {
@@ -31,7 +31,7 @@ const App = () => {
         <Header/>
         <div style={styles.root}>
           <GridList style={styles.gridList}>
-            <GridTile>
+            <GridTile style={{height:490}}>
               <Board/>
             </GridTile>
             <GridTile>
