@@ -14,8 +14,10 @@ const style = {
   display: 'inline-block',
 };
 
-
+// componente caja, cada una de las fichas del tablero
 const Box = (props) => {
+  // log
+  console.log("ss",props.name)
   let card = props.cards[props.name - 1];
   console.log(card);
   return (
@@ -26,7 +28,7 @@ const Box = (props) => {
     </div>
   );
 }
-
+// constructor de estado para redux
 const mapStateToProps = state => {
   return {
     cards: state.cards,
@@ -35,6 +37,7 @@ const mapStateToProps = state => {
   };
 };
 
+// manejador de acciones para redux
 const mapDispatchToProps = dispatch => {
   return {
 

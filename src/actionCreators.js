@@ -1,3 +1,5 @@
+// manejadores de acción
+
 const fillMatrix = (cards, mtz_board) => {
   return {
     type: "FILL_MATRIX",

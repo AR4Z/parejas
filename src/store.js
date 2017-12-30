@@ -16,6 +16,7 @@ const fillMatrix = (cards, mtz_board) => {
   return mtz_board;
 }
 
+// ayudante para redux
 const reducer = (state, action) => {
   if(action.type === "FILL_MATRIX"){
     console.log("estado",state);
@@ -29,6 +30,8 @@ const reducer = (state, action) => {
   return state;
 };
 
+
+// estado inicial
 export default createStore(reducer, { cards: [
   {id: 1, img:"./images/1.png", turn:false},
   {id: 2, img:"./images/2.png", turn:false},
