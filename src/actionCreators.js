@@ -8,4 +8,12 @@ const fillMatrix = (cards, mtz_board) => {
   };
 };
 
-export { fillMatrix };
+const turnPlay = (mtz_board, row, col) => {
+  return {
+    type: "TURN_PLAY",
+    mtz_board,
+    row,
+    col
+  };
+};
+export { fillMatrix, turnPlay };

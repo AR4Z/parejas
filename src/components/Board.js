@@ -14,19 +14,26 @@ const Board = (props) => {
   if (!props.board_ready){
     props.fillMatrix(props.cards, props.mtz_board);
   }
-
   return(
     <Card>
     // ERROR
      <CardTitle title="Tablero"/>
-     {props.mtz_board.map(row =>
-       <GridList cols={5} cellHeight={100}>
-       {row.map(col =>
-        <GridTile >
-        <Box name={col.id}/>
-        </GridTile>
-       )}
-       </GridList>
+     {props.mtz_board.map((row, number_row) =>{
+       return(
+         <GridList cols={5} cellHeight={100}>
+         {row.map((col, number_col) => {
+           return(
+             <GridTile >
+             <Box name={col.id} n_row={number_row} n_col={number_col++}/>
+             </GridTile>
+           )
+         }
+         )}
+         </GridList>
+       )
+       number_row++
+     }
+
      )}
     </Card>
   );
