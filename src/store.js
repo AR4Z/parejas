@@ -16,14 +16,52 @@ const fillMatrix = (cards, mtz_board) => {
   return mtz_board;
 }
 
+const nTurnCards = (board) => {
+  let n_turn_cards = 0;
+  for(let row = 0; row < 4; row++){
+    for(let col  = 0; col < 5; col++){
+      if(board[row][col].turn_play){
+        n_turn_cards++;
+      }
+    }
+  }
+  return n_turn_cards;
+}
+
 const turnsPlay = (board, row, col) => {
-  console.log("volteando fiicha", row, col)
-  console.log('./images/' + board[row][col].id + '.png')
-  board[row][col].img = './images/' + board[row][col].id + '.png';
-  board[row][col].turn_play =  true;
-  console.log("nueva",board[row][col].img)
+  if(board[row][col].turn_play){
+    board[row][col].img = "./images/flecha.png";
+    board[row][col].turn_play = false;
+  } else {
+    console.log("volteando fiicha", row, col);
+    console.log('./images/' + board[row][col].id + '.png');
+    board[row][col].img = './images/' + board[row][col].id + '.png';
+    board[row][col].turn_play =  true;
+    console.log("nueva",board[row][col].img);
+  }
   return board;
 }
+
+const cardEquals = (board) => {
+  let card1 = {};
+  let card2 = {};
+  let count = 0;
+  for(let row = 0; row < 4; row++){
+    for(let col  = 0; col < 5; col++){
+      if(board[row][col].turn_play){
+        card1 = board[row][col];
+        count++;
+      } else {
+        if(count == 1){
+          card2 = board[row][col];
+        }
+      }
+    }
+  }
+  return (card1.id == card2.id);
+}
+
+
 // ayudante para redux
 const reducer = (state, action) => {
   if(action.type === "FILL_MATRIX"){
