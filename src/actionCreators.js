@@ -23,4 +23,12 @@ const success = () => {
   };
 
 };
-export { fillMatrix, turnPlay, success };
+
+const turnOff = (row, col) => {
+  return {
+    type: "TURN_OFF",
+    row,
+    col
+  };
+};
+export { fillMatrix, turnPlay, success, turnOff };

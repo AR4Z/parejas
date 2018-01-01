@@ -26,7 +26,7 @@ const turnsPlay = (board, row, col) => {
 }
 
 const success = (flipedCards) => {
-  return flipedCards[0][0].id === flipedCards[1][0].id;
+  return (flipedCards[0][0].id === flipedCards[1][0].id);
 }
 
 // ayudante para redux
@@ -44,7 +44,6 @@ const reducer = (state, action) => {
       return arr.slice();
     });
     turnsPlay(clone, action.row, action.col);
-    console.log("desde state.movidas", state.movidas)
     if (state.movidas.length === 2){
       if(success(state.movidas)){
         clone[state.movidas[0][1]][state.movidas[0][2]].turn_perm = true;
@@ -61,14 +60,28 @@ const reducer = (state, action) => {
     return {
       ...state,
       mtz_board: clone,
-      movidas: [...state.movidas, [clone[action.row][action.col], action.row, action.col]]
+      movidas: [...state.movidas, [JSON.parse(JSON.stringify(clone[action.row][action.col])), action.row, action.col]]
     };
+
   } else if(action.type === "SUCCESS"){
     console.log("SUCCESSS")
     return {
       ...state,
       mtz_board: state.mtz_board,
       movidas:[]
+    }
+  } else if(action.type === "TURN_OFF"){
+    console.log("TURN_OFF");
+    let clone = state.mtz_board.map(function(arr) {
+      return arr.slice();
+    });
+    console.log("desde turnoff",state.mtz_board)
+    clone[action.row][action.col].turn_play = false;
+    return {
+      ...state,
+      mtz_board: clone,
+      movidas: state.movidas.filter((card) => card[0].id !== state.mtz_board[action.row][action.col].id)
+
     }
   }
   return state;

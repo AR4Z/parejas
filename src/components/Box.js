@@ -2,7 +2,7 @@
 import React from 'react';
 // react-redux
 import { connect } from 'react-redux';
-import { turnPlay, success } from '../actionCreators';
+import { turnPlay, success, turnOff } from '../actionCreators';
 // material-ui
 import Paper from 'material-ui/Paper';
 
@@ -21,11 +21,12 @@ const Box = (props) => {
   console.log("ss",props.name)
   let card = props.mtz_board[props.n_row][props.n_col];
   console.log("movidas",props.movidas)
+  console.log("mtz", props.mtz_board)
   if(card.turn_perm || card.turn_play){
     return (
       <div>
         <Paper style={style} zDepth={3}>
-          <img src={card.img} style={{width:'100%', height:'100%'}} onClick={() => props.turnPlay(props.mtz_board, props.n_row, props.n_col)}/>
+          <img src={card.img} style={{width:'100%', height:'100%'}} onClick={() => props.turnOff(props.n_row, props.n_col)}/>
         </Paper>
       </div>
     );
@@ -57,6 +58,9 @@ const mapDispatchToProps = dispatch => {
     },
     success(){
       dispatch(success());
+    },
+    turnOff(row, col){
+      dispatch(turnOff(row, col));
     }
   };
 };
