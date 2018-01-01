@@ -1,5 +1,5 @@
 # Parejas game
-
+a simple game to learn react and other technologies
 
 ### Run the game
 
