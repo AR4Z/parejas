@@ -16,4 +16,11 @@ const turnPlay = (mtz_board, row, col) => {
     col
   };
 };
-export { fillMatrix, turnPlay };
+
+const success = () => {
+  return {
+    type: "SUCCESS"
+  };
+
+};
+export { fillMatrix, turnPlay, success };

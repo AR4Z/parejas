@@ -16,72 +16,59 @@ const fillMatrix = (cards, mtz_board) => {
   return mtz_board;
 }
 
-const nTurnCards = (board) => {
-  let n_turn_cards = 0;
-  for(let row = 0; row < 4; row++){
-    for(let col  = 0; col < 5; col++){
-      if(board[row][col].turn_play){
-        n_turn_cards++;
-      }
-    }
-  }
-  return n_turn_cards;
-}
-
 const turnsPlay = (board, row, col) => {
-  if(board[row][col].turn_play){
-    board[row][col].img = "./images/flecha.png";
+  if(board[row][col].turn_play & !board[row][col].turn_perm){
     board[row][col].turn_play = false;
-  } else {
-    console.log("volteando fiicha", row, col);
-    console.log('./images/' + board[row][col].id + '.png');
-    board[row][col].img = './images/' + board[row][col].id + '.png';
+  } else if(!board[row][col].turn_perm){
     board[row][col].turn_play =  true;
-    console.log("nueva",board[row][col].img);
   }
   return board;
 }
 
-const cardEquals = (board) => {
-  let card1 = {};
-  let card2 = {};
-  let count = 0;
-  for(let row = 0; row < 4; row++){
-    for(let col  = 0; col < 5; col++){
-      if(board[row][col].turn_play){
-        card1 = board[row][col];
-        count++;
-      } else {
-        if(count == 1){
-          card2 = board[row][col];
-        }
-      }
-    }
-  }
-  return (card1.id == card2.id);
+const success = (flipedCards) => {
+  return flipedCards[0][0].id === flipedCards[1][0].id;
 }
-
 
 // ayudante para redux
 const reducer = (state, action) => {
   if(action.type === "FILL_MATRIX"){
-    console.log("estado",state);
     return {
       ...state,
       mtz_board: fillMatrix(action.cards, action.mtz_board),
-      board_ready: true
+      board_ready: true,
+      movidas:[]
 
     };
   } else if(action.type === "TURN_PLAY") {
-    var clone = state.mtz_board.map(function(arr) {
+    let clone = state.mtz_board.map(function(arr) {
       return arr.slice();
     });
-    console.log("copy", clone, action.row, action.col);
     turnsPlay(clone, action.row, action.col);
-    console.log("nueva", clone);
+    console.log("desde state.movidas", state.movidas)
+    if (state.movidas.length === 2){
+      if(success(state.movidas)){
+        clone[state.movidas[0][1]][state.movidas[0][2]].turn_perm = true;
+        clone[state.movidas[0][1]][state.movidas[0][2]].turn_play = false;
+        clone[state.movidas[1][1]][state.movidas[1][2]].turn_perm = true;
+        clone[state.movidas[1][1]][state.movidas[1][2]].turn_play = false;
+        state.movidas = [];
+      } else {
+        clone[state.movidas[0][1]][state.movidas[0][2]].turn_play = false;
+        clone[state.movidas[1][1]][state.movidas[1][2]].turn_play = false;
+        state.movidas = [];
+      }
+    }
     return {
       ...state,
       mtz_board: clone,
+      movidas: [...state.movidas, [clone[action.row][action.col], action.row, action.col]]
+    };
+  } else if(action.type === "SUCCESS"){
+    console.log("SUCCESSS")
+    return {
+      ...state,
+      mtz_board: state.mtz_board,
+      movidas:[]
     }
   }
   return state;
@@ -90,20 +77,22 @@ const reducer = (state, action) => {
 
 // estado inicial
 export default createStore(reducer, { cards: [
-  {id: 1, img:"./images/flecha.png", turn_perm:false, turn_play: false},
-  {id: 2, img:"./images/flecha.png", turn_perm:false, turn_play: false},
-  {id: 3, img:"./images/flecha.png", turn_perm:false, turn_play: false},
-  {id: 4, img:"./images/flecha.png", turn_perm:false, turn_play: false},
-  {id: 5, img:"./images/flecha.png", turn_perm:false, turn_play: false},
-  {id: 6, img:"./images/flecha.png", turn_perm:false, turn_play: false},
-  {id: 7, img:"./images/flecha.png", turn_perm:false, turn_play: false},
-  {id: 8, img:"./images/flecha.png", turn_perm:false, turn_play: false},
-  {id: 9, img:"./images/flecha.png", turn_perm:false, turn_play: false},
-  {id: 10, img:"./images/flecha.png", turn_perm:false, turn_play: false}
+  {id: 1, img:"./images/1.png", turn_perm:false, turn_play: false},
+  {id: 2, img:"./images/2.png", turn_perm:false, turn_play: false},
+  {id: 3, img:"./images/3.png", turn_perm:false, turn_play: false},
+  {id: 4, img:"./images/4.png", turn_perm:false, turn_play: false},
+  {id: 5, img:"./images/5.png", turn_perm:false, turn_play: false},
+  {id: 6, img:"./images/6.png", turn_perm:false, turn_play: false},
+  {id: 7, img:"./images/7.png", turn_perm:false, turn_play: false},
+  {id: 8, img:"./images/8.png", turn_perm:false, turn_play: false},
+  {id: 9, img:"./images/9.png", turn_perm:false, turn_play: false},
+  {id: 10, img:"./images/10.png", turn_perm:false, turn_play: false}
 ], mtz_board: [
   [0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0]
 ],
-board_ready: false});
+board_ready: false,
+movidas:[]}
+);
